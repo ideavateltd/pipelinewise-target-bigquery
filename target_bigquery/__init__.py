@@ -80,7 +80,7 @@ def add_metadata_values_to_record(record_message, stream_to_sync):
             return None
 
     extended_record = record_message['record']
-    extended_record['_sdc_extracted_at'] = parse_datetime(record_message['time_extracted'])
+    extended_record['_sdc_extracted_at'] = parse_datetime(record_message['time_extracted']) if 'time_extracted' in record_message else datetime.now()
     extended_record['_sdc_batched_at'] = datetime.now()
     extended_record['_sdc_deleted_at'] = parse_datetime(record_message.get('record', {}).get('_sdc_deleted_at'))
 
